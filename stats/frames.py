@@ -1,13 +1,13 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import pdb
 
 try:
     from data import games
 
-    plays_frame = games.query("type == 'play' & event != 'NP'")
+    plays_frame = games.loc[(games['type'] == 'play') & (games['event'] != 'NP')]
     plays_frame.columns = ['type', 'inning', 'team', 'player', 'count', 'pitches', 'event', 'game_id', 'year']
-
-    info = games.query("type == 'info' & (multi2 == 'visteam' | multi2 == 'hometeam')")
+    info = games.loc[(games['type'] == 'info') & ((games['multi2'] == 'visteam') | (games['multi2'] == 'hometeam'))]
     info = info.loc[:, ['year', 'game_id', 'multi2', 'multi3']]
     info.columns = ['year', 'game_id', 'team', 'defense']
     info.loc[info['team'] == 'visteam', 'team'] = '1'
