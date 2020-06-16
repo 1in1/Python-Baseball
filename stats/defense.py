@@ -2,8 +2,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from frames import *
 
-#plays = games.query("type == 'play' & event != 'NP'")
-plays = games.loc[(games['type'] == 'play') & (games['event'] != 'NP')]
+plays = games.query("type == 'play' & event != 'NP'")
+#plays = games.loc[(games['type'] == 'play') & (games['event'] != 'NP')]
 plays.columns = ['type', 'inning', 'team', 'player', 'count', 'pitches', 'event', 'game_id', 'year']
 pa = plays.loc[plays['player'].shift() != plays['player'], ['year', 'game_id', 'inning', 'team', 'player']]
 pa = pa.groupby(['year', 'game_id', 'team']).size().reset_index(name='PA')
